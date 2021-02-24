@@ -31,7 +31,7 @@ const startServer = async () => {
     `);
     });
 
-    server.on('error', err => {
+    server.on('error', (err) => {
       Logger.error('Server Error', err);
     });
 
