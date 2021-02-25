@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 import expressLoader from './express';
 import dependencyInjectorLoader from './dependency-injector';
 import mongooseLoader from './mongoose';
@@ -13,10 +14,10 @@ export default async ({ expressApp }) => {
    */
   await dependencyInjectorLoader({
     models: [
-      //   {
-      //     name: 'userModel',
-      //     model: require('../models/user').default,
-      //   },
+      {
+        name: 'UserModel',
+        model: require('../api/components/users/models/user.model').default,
+      },
     ],
   });
 

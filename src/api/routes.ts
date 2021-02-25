@@ -1,8 +1,10 @@
 import { Router } from 'express';
+import UsersRoutes from './components/users/users.routes';
 
-// guaranteed to get dependencies
 export default () => {
-  const app = Router();
+  const router = Router();
 
-  return app;
+  router.use('/users', new UsersRoutes().router);
+
+  return router;
 };
