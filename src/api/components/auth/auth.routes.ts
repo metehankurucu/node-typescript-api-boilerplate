@@ -3,8 +3,8 @@ import Container from 'typedi';
 import wrapAsync from '../../middlewares/wrap-async.middleware';
 import AuthController from './auth.controller';
 import { ComponentRoutes } from '../../../interfaces/index';
-import { LoginUserDTO } from './interfaces/auth.interface';
 import { validateBody } from '../../middlewares/validate.middleware';
+import LoginUserDTO from './dto/login-user.dto';
 
 class AuthRoutes implements ComponentRoutes<AuthController> {
   router: Router = Router();

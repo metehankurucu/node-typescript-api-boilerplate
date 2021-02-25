@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Service } from 'typedi';
 import AuthService from './auth.service';
-import { LoginUserDTO } from './interfaces/auth.interface';
+import LoginUserDTO from './dto/login-user.dto';
 
 @Service()
 class AuthController {

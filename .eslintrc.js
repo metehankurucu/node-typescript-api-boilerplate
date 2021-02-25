@@ -15,7 +15,7 @@ module.exports = {
   rules: {
     // 'prettier/prettier': 'error',
     'no-underscore-dangle': 1,
-    'object-curly-newline': 1,
+    'object-curly-newline': 0,
     '@typescript-eslint/no-unused-vars': 1,
     '@typescript-eslint/naming-convention': 1,
   },

@@ -1,8 +1,11 @@
 import { Model } from 'mongoose';
+import createError from 'http-errors';
 import { Inject, Service } from 'typedi';
 import bcrypt from 'bcryptjs';
 import { UserDocument } from './models/user.model';
-import { CreateUserDTO } from './interfaces/user.interface';
+import CreateUserDTO from './dto/create-user.dto';
+import UpdateUserDTO from './dto/update-user.dto';
+import UpdateCurrentUserDTO from './dto/update-current-user.dto';
 
 @Service()
 class UsersService {
@@ -22,13 +25,41 @@ class UsersService {
   create = async (createUserDTO: CreateUserDTO) => {
     const newUser = {
       ...createUserDTO,
-      password: bcrypt.hashSync(createUserDTO.password, 12),
+      password: this.hashPassword(createUserDTO.password),
       createdAt: new Date(),
     };
     const user = (await this.userModel.create(newUser)).toObject();
     Reflect.deleteProperty(user, 'password');
     return user;
   };
+
+  update = async (
+    id: string,
+    updateUserDTO: UpdateCurrentUserDTO | UpdateUserDTO,
+  ): Promise<UserDocument> => {
+    const params = {
+      ...updateUserDTO,
+    };
+
+    if (params.email) {
+      const exist = await this.userModel.findOne({ email: params.email });
+      if (exist) throw createError(400, 'Email exist already');
+    }
+
+    if (params.password) {
+      params.password = this.hashPassword(params.password);
+    }
+
+    await this.userModel.updateOne({ _id: id }, params).exec();
+    return this.findOne({ _id: id });
+  };
+
+  delete = async (id: string) => {
+    const { deletedCount } = await this.userModel.deleteOne({ _id: id }).exec();
+    return deletedCount === 1;
+  };
+
+  private hashPassword = (password: string) => bcrypt.hashSync(password, 12);
 }
 
 export default UsersService;

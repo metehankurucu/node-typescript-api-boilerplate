@@ -5,8 +5,9 @@ import { Service, Inject } from 'typedi';
 import jwt from 'jsonwebtoken';
 import config from '../../../config';
 import { User } from '../users/interfaces/user.interface';
-import { LoginUserDTO, UserJWTPayload } from './interfaces/auth.interface';
+import { UserJWTPayload } from './interfaces/auth.interface';
 import { UserDocument } from '../users/models/user.model';
+import LoginUserDTO from './dto/login-user.dto';
 
 @Service()
 class AuthService {

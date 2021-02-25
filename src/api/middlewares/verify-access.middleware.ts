@@ -2,6 +2,9 @@ import { Request, Response, NextFunction } from 'express';
 import createError from 'http-errors';
 import { UserRole } from '../../constants/enums';
 
+/**
+ * Must be called after calling verifyAuth to use decoded jwt
+ */
 const verifyAccess = (validRoles: UserRole[] = [], validSubs: string[] = []) => (
   req: Request,
   res: Response,

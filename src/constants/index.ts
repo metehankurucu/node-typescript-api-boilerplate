@@ -4,7 +4,7 @@ export const UserStatuses: UserStatus[] = [
   UserStatus.Blocked,
   UserStatus.Passive,
   UserStatus.Active,
-  UserStatus.Active,
+  UserStatus.Verified,
 ];
 
 export const UserRoles: UserRole[] = [UserRole.Normal, UserRole.Admin, UserRole.SuperAdmin];
