@@ -9,9 +9,7 @@ export const validate = (ValidatorClass, requestPart: RequestPart) => async (
   res: Response,
   next: NextFunction,
 ) => {
-  const obj = { ...req[requestPart] };
-
-  const validation = new ValidatorClass(obj);
+  const validation = new ValidatorClass(req[requestPart]);
 
   const errors = await validator(validation);
 

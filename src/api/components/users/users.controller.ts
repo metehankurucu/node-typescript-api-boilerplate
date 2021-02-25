@@ -8,8 +8,8 @@ class UsersController {
   constructor(private usersService: UsersService) {}
 
   getUser = async (req: Request, res: Response) => {
-    const { _id } = req.params;
-    const user = await this.usersService.findOne({ _id });
+    const { id } = req.params;
+    const user = await this.usersService.findOne({ _id: id });
     res.json({
       result: true,
       user,

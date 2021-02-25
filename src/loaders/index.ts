@@ -4,6 +4,7 @@ import dependencyInjectorLoader from './dependency-injector';
 import mongooseLoader from './mongoose';
 import jobsLoader from './jobs';
 import Logger from './logger';
+import postStartup from './post-startup';
 
 export default async ({ expressApp }) => {
   await mongooseLoader();
@@ -25,6 +26,9 @@ export default async ({ expressApp }) => {
 
   await expressLoader({ app: expressApp });
   Logger.info('✌️ Express loaded');
+
+  await postStartup();
+  Logger.info('✌️ Post startup executed');
 
   await jobsLoader();
   Logger.info('✌️ Jobs loaded');

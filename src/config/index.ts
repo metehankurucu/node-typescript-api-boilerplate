@@ -13,6 +13,7 @@ export default {
    * Server's Base URL
    */
   BASE_URL: process.env.BASE_URL,
+
   /**
    * Running Port
    */
@@ -34,4 +35,14 @@ export default {
   API: {
     PREFIX: '/api',
   },
+
+  /**
+   * Email of initial admin
+   */
+  ADMIN_ACCOUNT_EMAIL: process.env.ADMIN_ACCOUNT_EMAIL,
+
+  /**
+   * Password of initial admin
+   */
+  ADMIN_ACCOUNT_PASSWORD: process.env.ADMIN_ACCOUNT_PASSWORD,
 };
