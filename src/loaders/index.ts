@@ -19,6 +19,10 @@ export default async ({ expressApp }) => {
         name: 'UserModel',
         model: require('../api/components/users/models/user.model').default,
       },
+      {
+        name: 'PasswordResetModel',
+        model: require('../api/components/auth/models/password-reset.model').default,
+      },
     ],
   });
 

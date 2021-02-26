@@ -6,3 +6,16 @@ export interface UserJWTPayload {
   role: UserRole;
   status: UserStatus;
 }
+
+export enum PasswordResetStatus {
+  Invalid = 0,
+  Valid = 1,
+  Verified = 2,
+}
+export interface PasswordReset {
+  user: string;
+  email: string;
+  code: string;
+  status: PasswordResetStatus;
+  createdAt: Date;
+}

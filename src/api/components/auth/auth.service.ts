@@ -3,15 +3,22 @@ import bcrypt from 'bcryptjs';
 import { Model } from 'mongoose';
 import { Service, Inject } from 'typedi';
 import jwt from 'jsonwebtoken';
+import randomize from 'randomatic';
 import config from '../../../config';
 import { User } from '../users/interfaces/user.interface';
-import { UserJWTPayload } from './interfaces/auth.interface';
+import { PasswordResetStatus, UserJWTPayload } from './interfaces/auth.interface';
 import { UserDocument } from '../users/models/user.model';
 import LoginUserDTO from './dto/login-user.dto';
+import { PasswordResetDocument } from './models/password-reset.model';
+import generateDateRangeFromNow from '../../../utils/generate-date-range-from-now.util';
+import { PASSWORD_RESET_CODE_VALID_TIME_IN_MINS } from '../../../constants/auth';
 
 @Service()
 class AuthService {
-  constructor(@Inject('UserModel') private userModel: Model<UserDocument>) {}
+  constructor(
+    @Inject('UserModel') private userModel: Model<UserDocument>,
+    @Inject('PasswordResetModel') private passwordResetModel: Model<PasswordResetDocument>,
+  ) {}
 
   private generateToken = (user: User) => {
     const payload: UserJWTPayload = {
@@ -41,6 +48,65 @@ class AuthService {
     const token = this.generateToken(user);
 
     return { user, token };
+  };
+
+  createCode = async (email: string) => {
+    const user = await this.userModel.findOne({ email });
+
+    if (!user) throw createError(400, 'User not found.');
+
+    const code = randomize('0', 6);
+
+    await this.passwordResetModel.updateMany(
+      { user: user._id, status: PasswordResetStatus.Valid },
+      { status: PasswordResetStatus.Invalid },
+    );
+
+    await this.passwordResetModel.create({
+      user: user._id,
+      code,
+      email,
+      status: PasswordResetStatus.Valid,
+      createdAt: new Date(),
+    });
+
+    return code;
+  };
+
+  verifyCode = async (email: string, code: string) => {
+    const dates = generateDateRangeFromNow(60, PASSWORD_RESET_CODE_VALID_TIME_IN_MINS);
+    const passwordReset = await this.passwordResetModel.findOne({
+      email,
+      status: PasswordResetStatus.Valid,
+      createdAt: { $lt: dates.endDate },
+    });
+
+    if (!passwordReset) throw createError(400, 'Email verification code not found.');
+
+    if (String(passwordReset.code) !== String(code)) {
+      throw createError(400, 'Invalid verification code.');
+    }
+
+    await this.passwordResetModel.updateOne(
+      { _id: passwordReset.id },
+      { status: PasswordResetStatus.Verified },
+    );
+    return true;
+  };
+
+  canChangePassword = async (email: string, code: string) => {
+    const dates = generateDateRangeFromNow(60, PASSWORD_RESET_CODE_VALID_TIME_IN_MINS);
+
+    const passwordReset = await this.passwordResetModel.findOne({
+      email,
+      code,
+      status: PasswordResetStatus.Verified,
+      createdAt: { $lt: dates.endDate },
+    });
+
+    if (!passwordReset) throw createError(400, 'Email verification code did not verified.');
+
+    return passwordReset.user;
   };
 }
 

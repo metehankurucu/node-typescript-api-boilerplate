@@ -45,4 +45,24 @@ export default {
    * Password of initial admin
    */
   ADMIN_ACCOUNT_PASSWORD: process.env.ADMIN_ACCOUNT_PASSWORD,
+
+  /**
+   * Email port for mailer
+   */
+  EMAIL_PORT: process.env.EMAIL_PORT,
+
+  /**
+   *  Email host for mailer
+   *  */
+  EMAIL_HOST: process.env.EMAIL_HOST,
+
+  /**
+   * Email username for mailer
+   */
+  EMAIL_USER: process.env.EMAIL_USER,
+
+  /**
+   * Email password for mailer
+   */
+  EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
 };

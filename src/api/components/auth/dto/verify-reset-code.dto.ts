@@ -1,14 +1,14 @@
 import { IsNotEmpty, IsEmail } from 'class-validator';
 
-export default class LoginUserDTO {
+export default class VerifyResetCodeDTO {
   @IsEmail()
   readonly email: string;
 
   @IsNotEmpty()
-  readonly password: string;
+  readonly code: string;
 
-  constructor({ email, password }) {
+  constructor({ email, code }) {
     this.email = email;
-    this.password = password;
+    this.code = code;
   }
 }

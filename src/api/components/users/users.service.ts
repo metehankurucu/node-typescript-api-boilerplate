@@ -39,6 +39,7 @@ class UsersService {
   ): Promise<UserDocument> => {
     const params = {
       ...updateUserDTO,
+      updatedAt: new Date(),
     };
 
     if (params.email) {

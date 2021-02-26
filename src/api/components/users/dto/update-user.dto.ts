@@ -6,11 +6,11 @@ import UpdateCurrentUserDTO from './update-current-user.dto';
 export default class UpdateUserDTO extends UpdateCurrentUserDTO {
   @IsOptional()
   @IsIn(UserStatuses)
-  readonly status: UserStatus;
+  readonly status?: UserStatus;
 
   @IsOptional()
   @IsIn(UserRoles)
-  readonly role: UserRole;
+  readonly role?: UserRole;
 
   constructor({ status, role, firstname, lastname, email, password, thumbnail }) {
     super({ firstname, lastname, email, password, thumbnail });

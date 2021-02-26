@@ -1,5 +1,6 @@
 import { Container } from 'typedi';
 import LoggerInstance from './logger';
+import mailer from './mailer';
 
 export default async ({ models }: { models: { name: string; model: any }[] }) => {
   try {
@@ -8,6 +9,7 @@ export default async ({ models }: { models: { name: string; model: any }[] }) =>
     });
 
     Container.set('logger', LoggerInstance);
+    Container.set('mailer', mailer);
   } catch (e) {
     LoggerInstance.error('🔥 Error on dependency injector loader: %o', e);
     throw e;
