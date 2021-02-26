@@ -7,7 +7,7 @@
     "build": "tsc",
     "dev": "nodemon",
     "start": "node dist/main",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "lint": "eslint ./src --ext .js,.ts",
     "lint:fix": "eslint --fix ./src --ext .js,.ts"
   },
