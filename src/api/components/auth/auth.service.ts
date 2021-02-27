@@ -44,7 +44,12 @@ class AuthService {
 
     if (!validPassword) throw createError(400, 'Email or password wrong');
 
-    const user = await this.userModel.findOne({ email });
+    // Updating lastLoginedAt is unnecessary here
+    // you can update it async with subscribers (eg using messaging queues)
+    const [user] = await Promise.all([
+      this.userModel.findOne({ email }),
+      this.userModel.updateOne({ email }, { lastLoginedAt: new Date() }),
+    ]);
     const token = this.generateToken(user);
 
     return { user, token };
@@ -101,7 +106,7 @@ class AuthService {
       email,
       code,
       status: PasswordResetStatus.Verified,
-      createdAt: { $lt: dates.endDate },
+      createdAt: { $gt: dates.startDate, $lt: dates.endDate },
     });
 
     if (!passwordReset) throw createError(400, 'Email verification code did not verified.');

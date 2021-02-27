@@ -58,7 +58,7 @@ export default {
    * Monitor Config
    */
   MONITOR: {
-    ENABLED: process.env.MONITOR_ENABLED === 'true' || false,
+    ENABLED: process.env.MONITOR_ENABLED === 'true',
     USERNAME: process.env.MONITOR_USERNAME,
     PASSWORD: process.env.MONITOR_PASSWORD,
     ROUTE: process.env.MONITOR_ROUTE || '/status',

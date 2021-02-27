@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import Container from 'typedi';
-import { validateBody } from '../../middlewares/validate.middleware';
+import { validateBody, validateQuery } from '../../middlewares/validate.middleware';
 import { ComponentRoutes } from '../../../interfaces';
 import UsersController from './users.controller';
 import wrapAsync from '../../middlewares/wrap-async.middleware';
@@ -10,6 +10,7 @@ import { AdminRoles } from '../../../constants';
 import CreateUserDTO from './dto/create-user.dto';
 import UpdateUserDTO from './dto/update-user.dto';
 import UpdateCurrentUserDTO from './dto/update-current-user.dto';
+import GetUsersDTO from './dto/get-users.dto';
 
 class UsersRoutes implements ComponentRoutes<UsersController> {
   router: Router = Router();
@@ -23,7 +24,13 @@ class UsersRoutes implements ComponentRoutes<UsersController> {
 
   registerRoutes = () => {
     // Get All Users
-    this.router.get('/', verifyAuth, verifyAccess(AdminRoles), wrapAsync(this.controller.getUsers));
+    this.router.get(
+      '/',
+      verifyAuth,
+      verifyAccess(AdminRoles),
+      validateQuery(GetUsersDTO),
+      wrapAsync(this.controller.getUsers),
+    );
     // Create User
     this.router.post('/', validateBody(CreateUserDTO), wrapAsync(this.controller.createUser));
     // Get Current User

@@ -6,6 +6,7 @@ import { UserDocument } from './models/user.model';
 import CreateUserDTO from './dto/create-user.dto';
 import UpdateUserDTO from './dto/update-user.dto';
 import UpdateCurrentUserDTO from './dto/update-current-user.dto';
+import GetUsersDTO from './dto/get-users.dto';
 
 @Service()
 class UsersService {
@@ -17,8 +18,13 @@ class UsersService {
     return user;
   };
 
-  findAll = async (): Promise<UserDocument[]> => {
-    const users = await this.userModel.find().exec();
+  findAll = async ({ offset = 0, limit = 50 }: GetUsersDTO): Promise<UserDocument[]> => {
+    const users = await this.userModel
+      .find()
+      .skip(offset)
+      .limit(limit)
+      .sort({ createdAt: 'desc' })
+      .exec();
     return users;
   };
 

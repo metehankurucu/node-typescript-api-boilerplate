@@ -5,6 +5,7 @@ import {
   EventDispatcherInterface,
 } from '../../../decorators/event-dispatcher.decorator';
 import CreateUserDTO from './dto/create-user.dto';
+import GetUsersDTO from './dto/get-users.dto';
 import UpdateCurrentUserDTO from './dto/update-current-user.dto';
 import UpdateUserDTO from './dto/update-user.dto';
 import events from './subscribers/events';
@@ -26,9 +27,9 @@ class UsersController {
     });
   };
 
-  // TODO limit offset vs
   getUsers = async (req: Request, res: Response) => {
-    const users = await this.usersService.findAll();
+    const { offset, limit } = req.dto as GetUsersDTO;
+    const users = await this.usersService.findAll({ offset, limit });
     res.json({
       result: true,
       users,
