@@ -11,11 +11,11 @@ export default async ({ app }: { app: express.Application }) => {
   /**
    * Health Check endpoints
    */
-  app.get('/status', (req, res) => {
+  app.get('/health', (req, res) => {
     res.status(200).end();
   });
 
-  app.head('/status', (req, res) => {
+  app.head('/health', (req, res) => {
     res.status(200).end();
   });
 

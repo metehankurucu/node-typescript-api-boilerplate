@@ -5,6 +5,7 @@ import mongooseLoader from './mongoose';
 import jobsLoader from './jobs';
 import Logger from './logger';
 import postStartup from './post-startup';
+import monitorLoader from './monitor';
 // required to trigger events
 import './events';
 
@@ -29,6 +30,8 @@ export default async ({ expressApp }) => {
   });
 
   Logger.info('✌️ Dependency Injector loaded');
+
+  await monitorLoader({ app: expressApp });
 
   await expressLoader({ app: expressApp });
   Logger.info('✌️ Express loaded');

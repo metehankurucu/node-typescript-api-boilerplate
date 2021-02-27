@@ -65,4 +65,14 @@ export default {
    * Email password for mailer
    */
   EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
+
+  /**
+   * Monitor Config
+   */
+  MONITOR: {
+    ENABLED: process.env.MONITOR_ENABLED === 'true' || false,
+    USERNAME: process.env.MONITOR_USERNAME,
+    PASSWORD: process.env.MONITOR_PASSWORD,
+    ROUTE: process.env.MONITOR_ROUTE || '/status',
+  },
 };
