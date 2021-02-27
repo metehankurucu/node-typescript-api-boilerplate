@@ -1,16 +1,25 @@
 import { Request, Response } from 'express';
 import { Service } from 'typedi';
+import {
+  EventDispatcher,
+  EventDispatcherInterface,
+} from '../../../decorators/event-dispatcher.decorator';
 import CreateUserDTO from './dto/create-user.dto';
 import UpdateCurrentUserDTO from './dto/update-current-user.dto';
 import UpdateUserDTO from './dto/update-user.dto';
+import events from './subscribers/events';
 import UsersService from './users.service';
 
 @Service()
 class UsersController {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    @EventDispatcher() private eventDispatcher: EventDispatcherInterface,
+  ) {}
 
   createUser = async (req: Request, res: Response) => {
     const user = await this.usersService.create(req.dto as CreateUserDTO);
+    this.eventDispatcher.dispatch(events.user.created, user);
     res.json({
       user,
       result: true,

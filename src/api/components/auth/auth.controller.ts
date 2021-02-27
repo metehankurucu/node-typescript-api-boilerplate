@@ -2,6 +2,11 @@ import { Request, Response } from 'express';
 import Mail from 'nodemailer/lib/mailer';
 import { Service, Container } from 'typedi';
 import config from '../../../config';
+import {
+  EventDispatcher,
+  EventDispatcherInterface,
+} from '../../../decorators/event-dispatcher.decorator';
+import events from '../users/subscribers/events';
 import UsersService from '../users/users.service';
 import AuthService from './auth.service';
 import ChangePasswordDTO from './dto/change-password.dto';
@@ -11,10 +16,14 @@ import VerifyResetCodeDTO from './dto/verify-reset-code.dto';
 
 @Service()
 class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    @EventDispatcher() private eventDispatcher: EventDispatcherInterface,
+  ) {}
 
   login = async (req: Request, res: Response) => {
     const { user, token } = await this.authService.login(req.dto as LoginUserDTO);
+    this.eventDispatcher.dispatch(events.user.logined, user);
     res.json({
       result: true,
       user,

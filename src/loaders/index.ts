@@ -5,6 +5,8 @@ import mongooseLoader from './mongoose';
 import jobsLoader from './jobs';
 import Logger from './logger';
 import postStartup from './post-startup';
+// required to trigger events
+import './events';
 
 export default async ({ expressApp }) => {
   await mongooseLoader();
