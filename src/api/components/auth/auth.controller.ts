@@ -40,7 +40,7 @@ class AuthController {
       to: email,
       subject: 'Password Reset',
       text: `Your verification code to change your password is ${code}`,
-      from: config.EMAIL_USER,
+      from: config.EMAIL.USER,
     });
 
     res.json({ result: true });

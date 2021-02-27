@@ -3,11 +3,11 @@ import config from '../config';
 import LoggerInstance from './logger';
 
 const mailer = nodemailer.createTransport({
-  host: config.EMAIL_HOST,
-  port: Number(config.EMAIL_PORT),
+  host: config.EMAIL.HOST,
+  port: Number(config.EMAIL.PORT),
   auth: {
-    user: config.EMAIL_USER,
-    pass: config.EMAIL_PASSWORD,
+    user: config.EMAIL.USER,
+    pass: config.EMAIL.PASSWORD,
   },
 });
 

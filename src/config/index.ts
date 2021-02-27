@@ -37,34 +37,22 @@ export default {
   },
 
   /**
-   * Email of initial admin
+   * Default admin account
    */
-  ADMIN_ACCOUNT_EMAIL: process.env.ADMIN_ACCOUNT_EMAIL,
+  ADMIN_ACCOUNT: {
+    EMAIL: process.env.ADMIN_ACCOUNT_EMAIL,
+    PASSWORD: process.env.ADMIN_ACCOUNT_PASSWORD,
+  },
 
   /**
-   * Password of initial admin
+   * Email config
    */
-  ADMIN_ACCOUNT_PASSWORD: process.env.ADMIN_ACCOUNT_PASSWORD,
-
-  /**
-   * Email port for mailer
-   */
-  EMAIL_PORT: process.env.EMAIL_PORT,
-
-  /**
-   *  Email host for mailer
-   *  */
-  EMAIL_HOST: process.env.EMAIL_HOST,
-
-  /**
-   * Email username for mailer
-   */
-  EMAIL_USER: process.env.EMAIL_USER,
-
-  /**
-   * Email password for mailer
-   */
-  EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
+  EMAIL: {
+    PORT: process.env.EMAIL_PORT,
+    HOST: process.env.EMAIL_HOST,
+    USER: process.env.EMAIL_USER,
+    PASSWORD: process.env.EMAIL_PASSWORD,
+  },
 
   /**
    * Monitor Config

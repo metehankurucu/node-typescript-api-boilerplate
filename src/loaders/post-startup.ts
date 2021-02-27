@@ -9,27 +9,27 @@ import { UserStatus, UserRole } from '../constants/enums';
 const initializeAdmin = async () => {
   const logger: Logger = Container.get('logger');
 
-  if (!config.ADMIN_ACCOUNT_EMAIL || !config.ADMIN_ACCOUNT_PASSWORD) {
+  if (!config.ADMIN_ACCOUNT.EMAIL || !config.ADMIN_ACCOUNT.PASSWORD) {
     logger.warn('Default admin account email or password does not specified in .env file.');
     return;
   }
 
   const userModel: Model<UserDocument> = Container.get('UserModel');
-  const adminExist = await userModel.findOne({ email: config.ADMIN_ACCOUNT_EMAIL });
+  const adminExist = await userModel.findOne({ email: config.ADMIN_ACCOUNT.EMAIL });
 
   if (adminExist) {
-    logger.info(`Default admin account found with ${config.ADMIN_ACCOUNT_EMAIL} email.`);
+    logger.info(`Default admin account found with ${config.ADMIN_ACCOUNT.EMAIL} email.`);
     return;
   }
 
   await userModel.create({
-    email: config.ADMIN_ACCOUNT_EMAIL,
-    password: hashSync(config.ADMIN_ACCOUNT_PASSWORD, 12),
+    email: config.ADMIN_ACCOUNT.EMAIL,
+    password: hashSync(config.ADMIN_ACCOUNT.PASSWORD, 12),
     role: UserRole.SuperAdmin,
     status: UserStatus.Active,
     createdAt: new Date(),
   });
-  logger.info(`Default admin account created with ${config.ADMIN_ACCOUNT_EMAIL} email.`);
+  logger.info(`Default admin account created with ${config.ADMIN_ACCOUNT.EMAIL} email.`);
 };
 
 /**
