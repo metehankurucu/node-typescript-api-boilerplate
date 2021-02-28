@@ -7,6 +7,9 @@
     <br />
   </h1>
   <sup>
+  <img src="https://img.shields.io/circleci/build/github/metehankurucu/node-typescript-api-boilerplate" alt="build" />
+  <img src="https://badgen.net/badge/-/TypeScript/blue?icon=typescript&label" alt="typescript">
+  <img src="https://img.shields.io/github/license/metehankurucu/node-typescript-api-boilerplate" alt="license" />
   </sup>
 </div>
 

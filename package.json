@@ -12,8 +12,8 @@
     "lint:fix": "eslint --fix ./src --ext .js,.ts"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Metehan Kurucu",
+  "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
