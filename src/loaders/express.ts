@@ -6,6 +6,7 @@ import rateLimit from 'express-rate-limit';
 import createError from 'http-errors';
 
 import routes from '../api/routes';
+import config from '../config';
 
 export default async ({ app }: { app: express.Application }) => {
   /**
@@ -39,10 +40,11 @@ export default async ({ app }: { app: express.Application }) => {
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100, // limit each IP to 100 requests per windowMs
   });
-  app.use('/api/', apiLimiter);
+
+  app.use(config.API.PREFIX.V1, apiLimiter);
 
   // Load API routes
-  app.use('/api', routes());
+  app.use(config.API.PREFIX.V1, routes());
 
   /// catch 404 and forward to error handler
   app.use((req, res, next) => {

@@ -33,7 +33,9 @@ export default {
    * API configs
    */
   API: {
-    PREFIX: '/api',
+    PREFIX: {
+      V1: '/api',
+    },
   },
 
   /**
