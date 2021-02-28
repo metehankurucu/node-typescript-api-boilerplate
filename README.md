@@ -15,6 +15,8 @@
 
 ## Table of Contents
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4dd5273ee50a4e7a9d763ee40061bd2f)](https://app.codacy.com/gh/metehankurucu/node-typescript-api-boilerplate?utm_source=github.com&utm_medium=referral&utm_content=metehankurucu/node-typescript-api-boilerplate&utm_campaign=Badge_Grade_Settings)
+
 - [About](#About)
 - [Features](#Features)
 - [API Endpoints](#API-Endpoints)
