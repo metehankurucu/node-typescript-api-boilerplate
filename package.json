@@ -1,7 +1,7 @@
 {
-  "name": "nodejs-template",
+  "name": "node-typescript-api-boilerplate",
   "version": "1.0.0",
-  "description": "",
+  "description": "A boilerplate/starter project to build REST APIs using Node.js with Typescript.",
   "main": "src/main.ts",
   "scripts": {
     "build": "tsc",
