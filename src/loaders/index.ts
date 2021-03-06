@@ -1,4 +1,3 @@
-/* eslint-disable global-require */
 import expressLoader from './express';
 import dependencyInjectorLoader from './dependency-injector';
 import mongooseLoader from './mongoose';

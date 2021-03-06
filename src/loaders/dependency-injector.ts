@@ -1,15 +1,17 @@
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable global-require */
+import glob from 'glob';
+import path from 'path';
 import { Container } from 'typedi';
 import LoggerInstance from './logger';
 import mailer from './mailer';
-import glob from 'glob';
-import path from 'path';
 
 export default async () =>
+  // eslint-disable-next-line implicit-arrow-linebreak
   new Promise<void>((resolve) => {
     try {
       Container.set('logger', LoggerInstance);
       Container.set('mailer', mailer);
-
       // Last step load models
       glob('**/*.model.ts', (err, files) => {
         if (err) LoggerInstance.error('glob error while loading models', err);
