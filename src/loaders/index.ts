@@ -16,18 +16,8 @@ export default async ({ expressApp }) => {
   /**
    * Load models to dependecy injector
    */
-  await dependencyInjectorLoader({
-    models: [
-      {
-        name: 'UserModel',
-        model: require('../api/components/users/models/user.model').default,
-      },
-      {
-        name: 'PasswordResetModel',
-        model: require('../api/components/auth/models/password-reset.model').default,
-      },
-    ],
-  });
+
+  await dependencyInjectorLoader();
 
   Logger.info('✌️ Dependency Injector loaded');
 

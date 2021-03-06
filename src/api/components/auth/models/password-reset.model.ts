@@ -33,3 +33,10 @@ const PasswordResetModel = mongoose.model<PasswordResetDocument>(
 );
 
 export default PasswordResetModel;
+
+// Required exports to load model automatically to dependency injector
+// use modelName in every model file
+export const modelName = 'PasswordResetModel';
+// arbitrary name
+// must be same to use injecting
+export const PasswordResetModelName = modelName;

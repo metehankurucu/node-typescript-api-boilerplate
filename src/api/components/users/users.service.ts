@@ -2,7 +2,7 @@ import { Model } from 'mongoose';
 import createError from 'http-errors';
 import { Inject, Service } from 'typedi';
 import bcrypt from 'bcryptjs';
-import { UserDocument } from './models/user.model';
+import { UserDocument, UserModelName } from './models/user.model';
 import CreateUserDTO from './dto/create-user.dto';
 import UpdateUserDTO from './dto/update-user.dto';
 import UpdateCurrentUserDTO from './dto/update-current-user.dto';
@@ -10,7 +10,7 @@ import GetUsersDTO from './dto/get-users.dto';
 
 @Service()
 class UsersService {
-  constructor(@Inject('UserModel') private userModel: Model<UserDocument>) {}
+  constructor(@Inject(UserModelName) private userModel: Model<UserDocument>) {}
 
   findOne = async (params: { _id?: string; email?: string }): Promise<UserDocument> => {
     if (!params._id && !params.email) throw new Error('_id or email must be passed');

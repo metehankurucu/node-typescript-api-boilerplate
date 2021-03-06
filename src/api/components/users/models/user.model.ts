@@ -57,3 +57,10 @@ export type UserDocument = User & mongoose.Document;
 
 const UserModel = mongoose.model<UserDocument>('User', UserSchema);
 export default UserModel;
+
+// Required exports to load model automatically to dependency injector
+// use modelName in every model file
+export const modelName = 'UserModel';
+// arbitrary name
+// must be same to use injecting
+export const UserModelName = modelName;

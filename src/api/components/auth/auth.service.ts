@@ -1,3 +1,4 @@
+import { UserModelName } from './../users/models/user.model';
 import createError from 'http-errors';
 import bcrypt from 'bcryptjs';
 import { Model } from 'mongoose';
@@ -9,15 +10,15 @@ import { User } from '../users/interfaces/user.interface';
 import { PasswordResetStatus, UserJWTPayload } from './interfaces/auth.interface';
 import { UserDocument } from '../users/models/user.model';
 import LoginUserDTO from './dto/login-user.dto';
-import { PasswordResetDocument } from './models/password-reset.model';
+import { PasswordResetDocument, PasswordResetModelName } from './models/password-reset.model';
 import generateDateRangeFromNow from '../../../utils/generate-date-range-from-now.util';
 import { PASSWORD_RESET_CODE_VALID_TIME_IN_MINS } from '../../../constants/auth';
 
 @Service()
 class AuthService {
   constructor(
-    @Inject('UserModel') private userModel: Model<UserDocument>,
-    @Inject('PasswordResetModel') private passwordResetModel: Model<PasswordResetDocument>,
+    @Inject(UserModelName) private userModel: Model<UserDocument>,
+    @Inject(PasswordResetModelName) private passwordResetModel: Model<PasswordResetDocument>,
   ) {}
 
   private generateToken = (user: User) => {
